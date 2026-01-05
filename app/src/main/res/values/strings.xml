@@ -211,4 +211,13 @@
     <string name="timer_mode">Timer Mode</string>
     <string name="white_noise">White Noise</string>
     <string name="pomodoro">Pomodoro</string>
+    <string name="login_title">Welcome Back! 👋</string>
+    <string name="login_subtitle">Let’s Get Back to Productivity</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password_q">Forgot Password?</string>
+    <string name="or_continue_with">or</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="continue_with_twitter">Continue with Twitter</string>
+    <string name="logging_in">Log in...</string>
 </resources>

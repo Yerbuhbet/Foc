@@ -27,6 +27,7 @@ import com.example.foc.data.preferences.DataStoreManager
 import com.example.foc.ui.onboarding.OnboardingScreen
 import com.example.foc.ui.onboarding.SplashScreen
 import com.example.foc.ui.onboarding.WelcomeScreen
+import com.example.foc.ui.auth.LoginScreen
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -94,10 +95,24 @@ class MainActivity : ComponentActivity() {
                             composable("welcome") {
                                 WelcomeScreen(
                                     onSignUp = { /* TODO */ },
-                                    onLogin = { /* TODO */ },
+                                    onLogin = { navController.navigate("login") },
                                     onGoogleContinue = { /* TODO */ },
                                     onFacebookContinue = { /* TODO */ },
                                     onTwitterContinue = { /* TODO */ }
+                                )
+                            }
+                            composable("login") {
+                                LoginScreen(
+                                    onBack = { navController.popBackStack() },
+                                    onLoginSuccess = {
+                                        navController.navigate("home") {
+                                            popUpTo("welcome") { inclusive = true }
+                                        }
+                                    },
+                                    onForgotPassword = { /* TODO */ },
+                                    onGoogleLogin = { /* TODO */ },
+                                    onFacebookLogin = { /* TODO */ },
+                                    onTwitterLogin = { /* TODO */ }
                                 )
                             }
                             composable("home") {
