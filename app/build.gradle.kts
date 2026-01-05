@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     // Room
     implementation(libs.room.runtime)

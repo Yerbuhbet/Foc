@@ -101,6 +101,7 @@ val TransparentGrey = Color(0x15757575)
 // Legacy compatibility
 val BrandPrimary = Primary900
 val BrandSecondary = Primary100
+val BrandOrange = Primary900 // Added for compatibility with Splash
 val TextLight = Greyscale900
 val TextGrey = Greyscale700
 val TextGreyLight = Greyscale50
