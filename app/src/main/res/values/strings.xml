@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Focusify</string>
+    <string name="select_task">Select Task</string>
+    <string name="no_sessions">No sessions</string>
+    <string name="start_to_focus">Start to Focus</string>
+    <string name="pause">Pause</string>
+    <string name="strict_mode">Strict Mode</string>
+    <string name="timer_mode">Timer Mode</string>
+    <string name="white_noise">White Noise</string>
+    <string name="pomodoro">Pomodoro</string>
+    <string name="manage">Manage</string>
+    <string name="calendar">Calendar</string>
+    <string name="report">Report</string>
+    <string name="settings">Settings</string>
+</resources>
