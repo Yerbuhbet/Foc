@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foc.R
 import com.example.foc.model.Task
+import com.example.foc.ui.components.Navbar
+import com.example.foc.ui.components.NavbarVariant
 import com.example.foc.ui.theme.*
 
 @Composable
@@ -54,7 +56,14 @@ fun HomeScreen(viewModel: PomodoroViewModel) {
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                HomeHeader()
+                Navbar(
+                    variant = NavbarVariant.NavbarFull,
+                    title = stringResource(id = R.string.app_name),
+                    showLogo = true,
+                    showLeftIcon = false,
+                    showRightIcon1 = true,
+                    onRightIcon1Click = { /* Handle notification */ }
+                )
                 Spacer(modifier = Modifier.height(Spacing.Space24))
                 TaskSelector(uiState.selectedTask)
                 Spacer(modifier = Modifier.height(Spacing.Space32))
@@ -70,34 +79,7 @@ fun HomeScreen(viewModel: PomodoroViewModel) {
 
 @Composable
 fun HomeHeader() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Spacing.Space24, vertical = Spacing.Space12),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_logo),
-            contentDescription = "Logo",
-            tint = White,
-            modifier = Modifier.size(28.dp)
-        )
-        Text(
-            text = stringResource(id = R.string.app_name),
-            color = White,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-        IconButton(onClick = { }) {
-            Icon(
-                imageVector = Icons.Default.Notifications,
-                contentDescription = "Notifications",
-                tint = White,
-                modifier = Modifier.size(28.dp)
-            )
-        }
-    }
+    // Removed as it's replaced by Navbar
 }
 
 @Composable
@@ -122,9 +104,10 @@ fun TaskSelector(selectedTask: Task?) {
                 fontSize = 18.sp
             )
             Icon(
-                imageVector = Icons.Outlined.KeyboardArrowDown,
+                painter = painterResource(id = R.drawable.ic_arrow_down),
                 contentDescription = "Dropdown",
-                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                modifier = Modifier.size(20.dp)
             )
         }
     }
@@ -190,9 +173,10 @@ fun FocusButton(isRunning: Boolean, onClick: () -> Unit) {
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                imageVector = Icons.Default.PlayArrow,
+                painter = painterResource(id = R.drawable.ic_play),
                 contentDescription = null,
-                tint = White
+                tint = White,
+                modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.width(Spacing.Space16))
             Text(
