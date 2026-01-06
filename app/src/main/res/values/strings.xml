@@ -220,4 +220,20 @@
     <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="continue_with_twitter">Continue with Twitter</string>
     <string name="logging_in">Log in...</string>
+    <string name="forgot_password_title">Forgot Your Password? 🔑</string>
+    <string name="forgot_password_desc">No worries, we’ll help you reset it. Please enter the email associated with your Focusify account.</string>
+    <string name="registered_email">Your Registered Email</string>
+    <string name="send_otp">Send OTP Code</string>
+    <string name="enter_otp_title">Enter OTP Code 🔐</string>
+    <string name="enter_otp_desc">We’ve sent you an OTP code to your registered email address. Please check your inbox and enter the code here.</string>
+    <string name="resend_code_in">You can resend the code in %1$d seconds</string>
+    <string name="resend_code">Resend code</string>
+    <string name="secure_account_title">Secure Your Account 🔒</string>
+    <string name="secure_account_desc">Almost there! Create a new password for your Focusify account to keep it secure. Remember to choose a strong and unique password.</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="save_new_password">Save New Password</string>
+    <string name="all_set_title">You’re All Set!</string>
+    <string name="all_set_desc">Congratulations! Your password has been changed successfully.</string>
+    <string name="go_to_homepage">Go to Homepage</string>
 </resources>

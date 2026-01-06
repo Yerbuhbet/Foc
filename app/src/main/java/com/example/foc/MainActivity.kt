@@ -28,6 +28,7 @@ import com.example.foc.ui.onboarding.OnboardingScreen
 import com.example.foc.ui.onboarding.SplashScreen
 import com.example.foc.ui.onboarding.WelcomeScreen
 import com.example.foc.ui.auth.LoginScreen
+import com.example.foc.ui.auth.ForgotPasswordFlow
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -109,10 +110,20 @@ class MainActivity : ComponentActivity() {
                                             popUpTo("welcome") { inclusive = true }
                                         }
                                     },
-                                    onForgotPassword = { /* TODO */ },
+                                    onForgotPassword = { navController.navigate("forgot_password") },
                                     onGoogleLogin = { /* TODO */ },
                                     onFacebookLogin = { /* TODO */ },
                                     onTwitterLogin = { /* TODO */ }
+                                )
+                            }
+                            composable("forgot_password") {
+                                ForgotPasswordFlow(
+                                    onBackToLogin = { navController.popBackStack() },
+                                    onResetSuccess = {
+                                        navController.navigate("home") {
+                                            popUpTo("welcome") { inclusive = true }
+                                        }
+                                    }
                                 )
                             }
                             composable("home") {
