@@ -7,29 +7,29 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Primary900,
-    secondary = Primary100,
-    tertiary = Greyscale700,
-    background = Dark1,
-    surface = Dark2,
-    onPrimary = White,
-    onSecondary = Greyscale50,
-    onTertiary = White,
-    onBackground = Greyscale50,
-    onSurface = Greyscale50,
+    primary = Variables.Primary.`900`,
+    onPrimary = Variables.Others.White,
+    secondary = Variables.Dark.`3`, // Neutral button background for dark theme
+    onSecondary = Variables.Greyscale.`50`,
+    tertiary = Variables.Greyscale.`700`,
+    background = Variables.Dark.`1`,
+    surface = Variables.Dark.`2`,
+    onTertiary = Variables.Others.White,
+    onBackground = Variables.Greyscale.`50`,
+    onSurface = Variables.Greyscale.`50`,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Primary900,
-    secondary = Primary100,
-    tertiary = Greyscale700,
-    background = White,
-    surface = Greyscale50,
-    onPrimary = White,
-    onSecondary = Greyscale900,
-    onTertiary = White,
-    onBackground = Greyscale900,
-    onSurface = Greyscale900,
+    primary = Variables.Primary.`900`,
+    onPrimary = Variables.Others.White,
+    secondary = Variables.Greyscale.`100`, // Neutral button background for light theme
+    onSecondary = Variables.Greyscale.`900`,
+    tertiary = Variables.Greyscale.`700`,
+    background = Variables.Others.White,
+    surface = Variables.Greyscale.`50`,
+    onTertiary = Variables.Others.White,
+    onBackground = Variables.Greyscale.`900`,
+    onSurface = Variables.Greyscale.`900`,
 )
 
 @Composable

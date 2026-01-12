@@ -11,8 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.foc.R
-import com.example.foc.ui.theme.Primary900
-import com.example.foc.ui.theme.White
+import com.example.foc.ui.theme.Variables
 import kotlinx.coroutines.delay
 
 @Composable
@@ -25,7 +24,7 @@ fun SplashScreen(onTimeout: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Primary900),
+            .background(Variables.Primary.`900`),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -39,7 +38,7 @@ fun SplashScreen(onTimeout: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(32.dp))
             CircularProgressIndicator(
-                color = White,
+                color = Variables.Others.White,
                 modifier = Modifier.size(40.dp)
             )
         }

@@ -2,19 +2,37 @@ package com.example.foc.ui.home
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.KeyboardArrowDown
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -22,17 +40,22 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foc.R
 import com.example.foc.model.Task
 import com.example.foc.ui.components.Navbar
 import com.example.foc.ui.components.NavbarVariant
-import com.example.foc.ui.theme.*
+import com.example.foc.ui.theme.CornerRadius
+import com.example.foc.ui.theme.Spacing
+import com.example.foc.ui.theme.Variables
 
 @Composable
-fun HomeScreen(viewModel: PomodoroViewModel) {
+fun HomeScreen(
+    viewModel: PomodoroViewModel,
+    onToggleTheme: () -> Unit,
+    onResetOnboarding: () -> Unit
+) {
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
@@ -49,7 +72,7 @@ fun HomeScreen(viewModel: PomodoroViewModel) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp)
-                    .background(Primary900)
+                    .background(Variables.Primary.`900`)
             )
 
             Column(
@@ -64,6 +87,30 @@ fun HomeScreen(viewModel: PomodoroViewModel) {
                     showRightIcon1 = true,
                     onRightIcon1Click = { /* Handle notification */ }
                 )
+
+                // Debug Buttons
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Spacing.Space24),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = onToggleTheme,
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text("Toggle Theme", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSecondary)
+                    }
+                    Button(
+                        onClick = onResetOnboarding,
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text("Reset App", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSecondary)
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(Spacing.Space24))
                 TaskSelector(uiState.selectedTask)
                 Spacer(modifier = Modifier.height(Spacing.Space32))
@@ -118,7 +165,7 @@ fun PomodoroTimer(timeLeft: Long, progress: Float) {
     val minutes = (timeLeft / 1000) / 60
     val seconds = (timeLeft / 1000) % 60
     val timeText = String.format("%02d:%02d", minutes, seconds)
-    val isLightTheme = MaterialTheme.colorScheme.background == White
+    val isLightTheme = MaterialTheme.colorScheme.background == Variables.Others.White
 
     Box(
         contentAlignment = Alignment.Center,
@@ -130,14 +177,14 @@ fun PomodoroTimer(timeLeft: Long, progress: Float) {
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawArc(
-                color = if (isLightTheme) Greyscale100 else Dark3,
+                color = if (isLightTheme) Variables.Greyscale.`100` else Variables.Dark.`3`,
                 startAngle = -90f,
                 sweepAngle = 360f,
                 useCenter = false,
                 style = Stroke(width = 12.dp.toPx(), cap = StrokeCap.Round)
             )
             drawArc(
-                color = Primary900,
+                color = Variables.Primary.`900`,
                 startAngle = -90f,
                 sweepAngle = 360f * progress,
                 useCenter = false,
@@ -168,14 +215,14 @@ fun FocusButton(isRunning: Boolean, onClick: () -> Unit) {
         modifier = Modifier
             .width(200.dp)
             .height(56.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Primary900),
-        shape = RoundedCornerShape(CornerRadius.RadiusRound)
+        colors = ButtonDefaults.buttonColors(containerColor = Variables.Primary.`900`),
+        shape = RoundedCornerShape(1000.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_play),
                 contentDescription = null,
-                tint = White,
+                tint = Variables.Others.White,
                 modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.width(Spacing.Space16))
@@ -183,7 +230,7 @@ fun FocusButton(isRunning: Boolean, onClick: () -> Unit) {
                 text = if (isRunning) stringResource(id = R.string.pause) else stringResource(id = R.string.start_to_focus),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                color = White
+                color = Variables.Others.White
             )
         }
     }
@@ -228,8 +275,8 @@ fun BottomNavigationBar() {
         containerColor = MaterialTheme.colorScheme.surface,
         modifier = Modifier.shadow(Spacing.Space8)
     ) {
-        val selectedColor = Primary900
-        val unselectedColor = Greyscale500
+        val selectedColor = Variables.Primary.`900`
+        val unselectedColor = Variables.Greyscale.`500`
 
         NavigationBarItem(
             selected = true,

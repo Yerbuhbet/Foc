@@ -2,7 +2,17 @@ package com.example.foc.ui.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,8 +21,27 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,10 +56,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foc.R
 import com.example.foc.ui.theme.CornerRadius
-import com.example.foc.ui.theme.Primary900
 import com.example.foc.ui.theme.Spacing
-import com.example.foc.ui.theme.Greyscale200
-import com.example.foc.ui.theme.Greyscale500
+import com.example.foc.ui.theme.Variables
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -136,13 +163,13 @@ fun EmailInputScreen(
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Primary900,
-                unfocusedBorderColor = Greyscale200
+                focusedBorderColor = Variables.Primary.`900`,
+                unfocusedBorderColor = Variables.Greyscale.`200`
             )
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.Space48))
-        
+
         Button(
             onClick = onContinue,
             enabled = isEmailValid,
@@ -151,8 +178,8 @@ fun EmailInputScreen(
                 .height(56.dp),
             shape = RoundedCornerShape(CornerRadius.RadiusRound),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Primary900,
-                disabledContainerColor = Primary900.copy(alpha = 0.5f)
+                containerColor = Variables.Primary.`900`,
+                disabledContainerColor = Variables.Primary.`900`.copy(alpha = 0.5f)
             )
         ) {
             Text(
@@ -216,8 +243,8 @@ fun EnterOTPScreen(
                 Surface(
                     modifier = Modifier.size(70.dp),
                     shape = RoundedCornerShape(CornerRadius.Radius12),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, if (char.isNotEmpty()) Primary900 else Greyscale200),
-                    color = if (char.isNotEmpty()) Primary900.copy(alpha = 0.05f) else MaterialTheme.colorScheme.surface
+                    border = androidx.compose.foundation.BorderStroke(1.dp, if (char.isNotEmpty()) Variables.Primary.`900` else Variables.Greyscale.`200`),
+                    color = if (char.isNotEmpty()) Variables.Primary.`900`.copy(alpha = 0.05f) else MaterialTheme.colorScheme.surface
                 ) {
                     Box(contentAlignment = Alignment.Center) {
                         Text(
@@ -270,7 +297,7 @@ fun EnterOTPScreen(
         ) {
             Text(
                 text = stringResource(R.string.resend_code),
-                color = if (timer == 0) Primary900 else Greyscale500,
+                color = if (timer == 0) Variables.Primary.`900` else Variables.Greyscale.`500`,
                 fontWeight = FontWeight.Bold
             )
         }
@@ -331,7 +358,7 @@ fun CreateNewPasswordScreen(
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             shape = RoundedCornerShape(CornerRadius.Radius12),
-            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Primary900)
+            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Variables.Primary.`900`)
         )
         
         Spacer(modifier = Modifier.height(Spacing.Space20))
@@ -352,7 +379,7 @@ fun CreateNewPasswordScreen(
             },
             visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             shape = RoundedCornerShape(CornerRadius.Radius12),
-            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Primary900)
+            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Variables.Primary.`900`)
         )
         
         Spacer(modifier = Modifier.height(Spacing.Space48))
@@ -365,8 +392,8 @@ fun CreateNewPasswordScreen(
                 .height(56.dp),
             shape = RoundedCornerShape(CornerRadius.RadiusRound),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Primary900,
-                disabledContainerColor = Primary900.copy(alpha = 0.5f)
+                containerColor = Variables.Primary.`900`,
+                disabledContainerColor = Variables.Primary.`900`.copy(alpha = 0.5f)
             )
         ) {
             Text(
@@ -422,7 +449,7 @@ fun ResetSuccessScreen(
                 .fillMaxWidth()
                 .height(56.dp),
             shape = RoundedCornerShape(CornerRadius.RadiusRound),
-            colors = ButtonDefaults.buttonColors(containerColor = Primary900)
+            colors = ButtonDefaults.buttonColors(containerColor = Variables.Primary.`900`)
         ) {
             Text(
                 text = stringResource(R.string.go_to_homepage),

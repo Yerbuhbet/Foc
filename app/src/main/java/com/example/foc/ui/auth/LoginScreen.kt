@@ -1,9 +1,17 @@
 package com.example.foc.ui.auth
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -11,15 +19,34 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -29,12 +56,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.foc.R
-import com.example.foc.ui.onboarding.SocialLoginButton
 import com.example.foc.ui.theme.CornerRadius
-import com.example.foc.ui.theme.Primary900
 import com.example.foc.ui.theme.Spacing
-import com.example.foc.ui.theme.Greyscale500
-import com.example.foc.ui.theme.Greyscale200
+import com.example.foc.ui.theme.Variables
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -118,8 +142,8 @@ fun LoginScreen(
                 shape = RoundedCornerShape(CornerRadius.Radius12),
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Primary900,
-                    unfocusedBorderColor = Greyscale200
+                    focusedBorderColor = Variables.Primary.`900`,
+                    unfocusedBorderColor = Variables.Greyscale.`200`
                 )
             )
 
@@ -146,8 +170,8 @@ fun LoginScreen(
                 shape = RoundedCornerShape(CornerRadius.Radius12),
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Primary900,
-                    unfocusedBorderColor = Greyscale200
+                    focusedBorderColor = Variables.Primary.`900`,
+                    unfocusedBorderColor = Variables.Greyscale.`200`
                 )
             )
 
@@ -163,7 +187,7 @@ fun LoginScreen(
                     Checkbox(
                         checked = rememberMe,
                         onCheckedChange = { rememberMe = it },
-                        colors = CheckboxDefaults.colors(checkedColor = Primary900)
+                        colors = CheckboxDefaults.colors(checkedColor = Variables.Primary.`900`)
                     )
                     Text(
                         text = stringResource(R.string.remember_me),
@@ -173,7 +197,7 @@ fun LoginScreen(
                 }
                 Text(
                     text = stringResource(R.string.forgot_password_q),
-                    color = Primary900,
+                    color = Variables.Primary.`900`,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable { onForgotPassword() }
@@ -198,8 +222,8 @@ fun LoginScreen(
                     .height(56.dp),
                 shape = RoundedCornerShape(CornerRadius.RadiusRound),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Primary900,
-                    disabledContainerColor = Primary900.copy(alpha = 0.5f)
+                    containerColor = Variables.Primary.`900`,
+                    disabledContainerColor = Variables.Primary.`900`.copy(alpha = 0.5f)
                 )
             ) {
                 Text(
@@ -220,18 +244,18 @@ fun LoginScreen(
                 HorizontalDivider(
                     modifier = Modifier.weight(1f),
                     thickness = 1.dp,
-                    color = Greyscale200
+                    color = Variables.Greyscale.`200`
                 )
                 Text(
                     text = stringResource(R.string.or_continue_with),
                     modifier = Modifier.padding(horizontal = Spacing.Space16),
-                    color = Greyscale500,
+                    color = Variables.Greyscale.`500`,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 HorizontalDivider(
                     modifier = Modifier.weight(1f),
                     thickness = 1.dp,
-                    color = Greyscale200
+                    color = Variables.Greyscale.`200`
                 )
             }
 
@@ -261,7 +285,7 @@ fun SocialIcon(iconRes: Int, onClick: () -> Unit) {
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(CornerRadius.Radius12),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Greyscale200),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Variables.Greyscale.`200`),
         modifier = Modifier.size(width = 88.dp, height = 60.dp),
         color = MaterialTheme.colorScheme.surface
     ) {
@@ -291,7 +315,7 @@ fun LoadingDialog() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                CircularProgressIndicator(color = Primary900)
+                CircularProgressIndicator(color = Variables.Primary.`900`)
                 Spacer(modifier = Modifier.height(Spacing.Space16))
                 Text(
                     text = stringResource(R.string.logging_in),

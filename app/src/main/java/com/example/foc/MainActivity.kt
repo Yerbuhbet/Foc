@@ -20,9 +20,8 @@ import com.example.foc.ui.home.PomodoroViewModel
 import com.example.foc.ui.theme.FocTheme
 import androidx.room.Room
 
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.*
 import com.example.foc.data.preferences.DataStoreManager
 import com.example.foc.ui.onboarding.OnboardingScreen
 import com.example.foc.ui.onboarding.SplashScreen
@@ -35,26 +34,27 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "foc-database"
-        ).build()
-        val repository = TaskRepository(db.taskDao())
-        val dataStoreManager = DataStoreManager(applicationContext)
-
         setContent {
-            FocTheme {
+            val navController = rememberNavController()
+            val db = Room.databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java, "foc-database"
+            ).build()
+            val repository = remember { TaskRepository(db.taskDao()) }
+            val dataStoreManager = remember { DataStoreManager(applicationContext) }
+            val viewModel: PomodoroViewModel = remember {
+                PomodoroViewModel(repository)
+            }
+            val scope = rememberCoroutineScope()
+            val onboardingCompleted by dataStoreManager.isOnboardingCompleted.collectAsState(initial = null)
+            var isDarkTheme by remember { mutableStateOf<Boolean?>(null) }
+            val currentTheme = isDarkTheme ?: isSystemInDarkTheme()
+
+            FocTheme(darkTheme = currentTheme) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-                    val viewModel: PomodoroViewModel = remember {
-                        PomodoroViewModel(repository)
-                    }
-                    val scope = rememberCoroutineScope()
-                    val onboardingCompleted by dataStoreManager.isOnboardingCompleted.collectAsState(initial = null)
-
                     if (onboardingCompleted != null) {
                         NavHost(
                             navController = navController,
@@ -127,7 +127,18 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable("home") {
-                                HomeScreen(viewModel)
+                                HomeScreen(
+                                    viewModel = viewModel,
+                                    onToggleTheme = { isDarkTheme = !currentTheme },
+                                    onResetOnboarding = {
+                                        scope.launch {
+                                            dataStoreManager.setOnboardingCompleted(false)
+                                            navController.navigate("splash") {
+                                                popUpTo(0) { inclusive = true }
+                                            }
+                                        }
+                                    }
+                                )
                             }
                         }
                     }

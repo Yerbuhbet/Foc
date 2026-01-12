@@ -1,6 +1,5 @@
 package com.example.foc.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,9 +15,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foc.R
-import com.example.foc.ui.theme.Primary900
 import com.example.foc.ui.theme.Spacing
-import com.example.foc.ui.theme.Greyscale200
+import com.example.foc.ui.theme.Variables
 
 enum class NavbarVariant {
     Default,
@@ -64,7 +62,7 @@ fun Navbar(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_logo),
                     contentDescription = "Logo",
-                    tint = if (isDark) Color.White else Primary900,
+                    tint = if (isDark) Color.White else Variables.Primary.`900`,
                     modifier = Modifier.size(28.dp)
                 )
             } else if (showLeftIcon) {
@@ -91,7 +89,7 @@ fun Navbar(
                         .fillMaxWidth()
                         .height(12.dp)
                         .background(
-                            if (isDark) Color(0xFF35383F) else Greyscale200,
+                            if (isDark) Variables.Dark.`5` else Variables.Greyscale.`200`,
                             RoundedCornerShape(100.dp)
                         )
                 ) {
@@ -99,7 +97,7 @@ fun Navbar(
                         modifier = Modifier
                             .fillMaxWidth(progress)
                             .fillMaxHeight()
-                            .background(Primary900, RoundedCornerShape(100.dp))
+                            .background(Variables.Primary.`900`, RoundedCornerShape(100.dp))
                     )
                 }
             } else if (showTitle) {
@@ -133,7 +131,7 @@ fun Navbar(
                 TextButton(onClick = onRightTextClick) {
                     Text(
                         text = rightText,
-                        color = Primary900,
+                        color = Variables.Primary.`900`,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
