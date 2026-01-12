@@ -2,7 +2,7 @@ package com.example.foc.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-object Variables {
+object Colors {
     object Primary {
         val `50` = Color(0xFFFFEFED)
         val `100` = Color(0xFFFFE0DA)
